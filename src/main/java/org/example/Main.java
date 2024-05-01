@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
 
         Properties props = new Properties();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "1");
-        props.put(ConsumerConfig.CLIENT_ID_CONFIG, "1-1");
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "111023212541010");
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, "1-2");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:10000");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, BytesDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, BytesDeserializer.class.getName());
         props.put(ConsumerConfig.GROUP_PROTOCOL_CONFIG, "consumer");
@@ -25,12 +25,12 @@ public class Main {
         kafkaConsumer.subscribe(List.of("test-topic1"));
 
         while (true) {
-            ConsumerRecords<String, String> poll = kafkaConsumer.poll(Duration.ZERO);
+            ConsumerRecords<String, String> poll = kafkaConsumer.poll(Duration.ofMillis(1000));
             for (ConsumerRecord<String, String> stringStringConsumerRecord : poll) {
-                System.out.println(stringStringConsumerRecord.value());
+                System.out.println(stringStringConsumerRecord);
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
